@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -15,7 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using StackExchange.Redis;
 
 namespace FastPaceTransferTest2022.Api.Services.Providers
@@ -92,7 +90,6 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
         {
             try
             {
-                // Get user details
                 var user = await _dbContext.Users.AsNoTracking()
                     .FirstOrDefaultAsync(u =>
                         u.EmailAddress.Equals(request.EmailAddress, StringComparison.OrdinalIgnoreCase));
