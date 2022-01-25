@@ -1,2 +1,2 @@
 #### Name: Paul Mensah
-#### Position: Software Developer
+#### Position: Software Developer (Mid-Level Developer)
