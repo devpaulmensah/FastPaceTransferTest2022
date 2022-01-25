@@ -155,17 +155,17 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                     Body = $"Your OTP Code to sign in is {otpCode}"
                 };
 
-                var smtpClient = new SmtpClient
+                using (var smtpClient = new SmtpClient())
                 {
-                    Port = _emailConfig.Port,
-                    Host = _emailConfig.Host,
-                    UseDefaultCredentials = false,
-                    EnableSsl = true,
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    Credentials = new NetworkCredential(_emailConfig.EmailAddress, _emailConfig.Password)
-                };
-
-                smtpClient.Send(mailMessage);
+                    smtpClient.Port = _emailConfig.Port;
+                    smtpClient.Host = _emailConfig.Host;
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true;
+                    smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+                    smtpClient.Credentials = new NetworkCredential(_emailConfig.EmailAddress, _emailConfig.Password);
+                    smtpClient.Send(mailMessage);
+                }
+                
                 return true;
             }
             catch (Exception e)
