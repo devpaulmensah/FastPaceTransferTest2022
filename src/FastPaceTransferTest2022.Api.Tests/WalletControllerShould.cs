@@ -13,16 +13,16 @@ using Xunit;
 
 namespace FastPaceTransferTest2022.Api.Tests
 {
-    public class UserControllerShould : IClassFixture<WebApplicationFactory<Startup>>
+    public class WalletServiceShould : IClassFixture<WebApplicationFactory<Startup>>
     {
+        private readonly WebApplicationFactory<Startup> _factory;
         private readonly HttpClient httpClient;
-        private readonly UserResponse _user;
         private readonly Faker _faker;
-        
-        public UserControllerShould(WebApplicationFactory<Startup> factory)
+        private readonly UserResponse _user;
+
+        public WalletServiceShould(WebApplicationFactory<Startup> factory)
         {
             httpClient = factory.CreateClient();
-            
             _faker = new Faker();
             
             _user = new UserResponse
@@ -37,50 +37,33 @@ namespace FastPaceTransferTest2022.Api.Tests
         }
         
         [Fact]
-        public async Task Return_Unauthorized_When_GetAllUsersEndpoint_Is_Called_Without_BearerToken()
+        public async Task Return_Unauthorized_When_GetWalletEndpoint_Is_Called_Without_BearerToken()
         {
             // Act
-            var response = await httpClient.GetAsync($"api/User");
+            var response = await httpClient.GetAsync($"api/Wallet/kmkmk");
             var statusCode = response.StatusCode;
 
             // Assert
             Assert.Equal(HttpStatusCode.Unauthorized, statusCode);
         }
-        
+
         [Theory]
-        [InlineData("{ FirstName = '', LastName = 'Mensah', EmailAddress = 'paul@gmail.com'}")]
-        [InlineData("{ FirstName = 'Paul', LastName = 'Mensah', EmailAddress = 'paul@gmail.com'}")]
-        [InlineData("{ FirstName = 'Paul', LastName = '', EmailAddress = 'paul@gmail.com', MobileNumber = '0241234567'}")]
-        public async Task Return_BadRequest_When_CreatingUser_Without_RequiredFields(string request)
+        [InlineData("{ UserId = '', Balance = '1'}")]
+        public async Task Return_BadRequest_When_CreatingWallet_Without_UserId(string request)
         {
             // Arrange
             var token = new TokenGenerator().GenerateToken(_user);
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             
-            var createAccountRequest = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8,
+            var walletRequest = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8,
                 MediaTypeNames.Application.Json);
             
             // Act
-            var response = await httpClient.PostAsync("api/user", createAccountRequest);
+            var response = await httpClient.PostAsync("api/wallet", walletRequest);
             var statusCode = response.StatusCode;
 
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, statusCode);
-        }
-        
-        [Fact]
-        public async Task Return_200Response_When_GetAllUsersEndpoint_Is_Called_BearerToken()
-        {
-            // Arrange
-            var token = new TokenGenerator().GenerateToken(_user);
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            
-            // Act
-            var response = await httpClient.GetAsync($"api/User");
-            var statusCode = response.StatusCode;
-
-            // Assert
-            Assert.Equal(HttpStatusCode.OK, statusCode);
         }
     }
 }
