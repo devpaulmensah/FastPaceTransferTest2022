@@ -1,13 +1,18 @@
 # Fast Pace Transfer Test
 
-## How to setup and run project
+```bash
+# restore dependencies
+$ dotnet restore
 
-### Install redis docker
+# setup email
+update configuration with your email and password to send otp code
 
-`docker run --name redis -d redis`
+# install redis using docker with the following commands
+$ docker pull redis
+$ docker run --name redis -d redis
 
-
-### Clone project and restore dependencies with
-
-`dotnet restore`
+# run project
+start redis in docker and run app
+$ dotnet run - start app
+```
 
