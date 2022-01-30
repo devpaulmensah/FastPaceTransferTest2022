@@ -13,5 +13,6 @@ namespace FastPaceTransferTest2022.Api.Services.Interfaces
         Task<BaseResponse<UserResponse>> UpdateUser(string userId, UserRequest request);
         Task<BaseResponse<UserResponse>> DeleteUser(string userId);
         Task<BaseResponse<UserProfileResponse>> GetUserProfile(string userId);
+        Task<BaseResponse<UserResponse>> UpdatePassword(string userId, UpdatePasswordRequest request);
     }
 }

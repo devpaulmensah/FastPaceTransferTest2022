@@ -8,6 +8,6 @@ namespace FastPaceTransferTest2022.Api.Models.Requests
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
         [Required]
-        public int OtpCode { get; set; }
+        public string OtpCode { get; set; }
     }
 }

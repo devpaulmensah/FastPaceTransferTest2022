@@ -102,7 +102,7 @@ namespace FastPaceTransferTest2022.Api.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("otp/very")]
+        [HttpPost("otp/verify")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse<SendOtpResponse>))]

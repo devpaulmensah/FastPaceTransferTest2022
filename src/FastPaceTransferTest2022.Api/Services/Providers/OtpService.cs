@@ -106,7 +106,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var redisKey = $"otp:{user.MobileNumber}";
                 var otpCode = await _redis.GetDatabase().StringGetAsync(redisKey);
                 
-                if (!request.OtpCode.Equals(int.Parse(otpCode.ToString())))
+                if (!request.OtpCode.Equals(otpCode.ToString()))
                 {
                     return new BaseResponse<LoginResponse>
                     {

@@ -212,6 +212,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 }
 
                 _mapper.Map(request, user);
+                user.UpdatedAt = DateTime.UtcNow;
 
                 _dbContext.Update(user);
                 var updateResponse = await _dbContext.SaveChangesAsync();
@@ -320,6 +321,71 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             {
                 _logger.LogError($"An error occured getting user: {userId} profile");
                 return CommonConstants.GetInternalServerResponse<UserProfileResponse>();
+            }
+        }
+        
+        public async Task<BaseResponse<UserResponse>> UpdatePassword(string userId, UpdatePasswordRequest request)
+        {
+            try
+            {
+                var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
+
+                if (user == null)
+                {
+                    return new BaseResponse<UserResponse>
+                    {
+                        Code = (int) HttpStatusCode.NotFound,
+                        Message = "User not found"
+                    };
+                }
+                
+                if (!BCrypt.Net.BCrypt.Verify(request.OldPassword, user.Password))
+                {
+                    return new BaseResponse<UserResponse>
+                    {
+                        Code = (int) HttpStatusCode.BadRequest,
+                        Message = "Incorrect password provided"
+                    };
+                }
+
+                if (!request.ConfirmPassword.Equals(request.NewPassword))
+                {
+                    return new BaseResponse<UserResponse>
+                    {
+                        Code = (int) HttpStatusCode.BadRequest,
+                        Message = "Passwords do not match"
+                    };
+                }
+
+                user.Password = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+                user.UpdatedAt = DateTime.UtcNow;
+
+                _dbContext.Update(user);
+                var updateResponse = await _dbContext.SaveChangesAsync();
+                
+                if (updateResponse < 1)
+                {
+                    _logger.LogError($"An error occured updating user: {userId} password" +
+                                     $"\nRequest: {JsonConvert.SerializeObject(request)}");
+
+                    return CommonConstants.GetFailedDependencyResponse<UserResponse>();
+                }
+
+                var userResponse = _mapper.Map<UserResponse>(user);
+
+                return new BaseResponse<UserResponse>
+                {
+                    Code = (int) HttpStatusCode.OK,
+                    Message = "Updated successfully",
+                    Data = userResponse
+                };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"An error occured updating user: {userId} details" +
+                                    $"\nRequest: {JsonConvert.SerializeObject(request)}");
+
+                return CommonConstants.GetInternalServerResponse<UserResponse>();
             }
         }
     }

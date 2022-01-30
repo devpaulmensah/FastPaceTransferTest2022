@@ -150,5 +150,27 @@ namespace FastPaceTransferTest2022.Api.Controllers
                 ? StatusCode(response.Code, response)
                 : Ok(response);
         }
+
+        /// <summary>
+        /// Update user's password
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPut("password")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(BaseResponse<UserResponse>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(BaseResponse<EmptyResponse>))]
+        [ProducesResponseType(StatusCodes.Status424FailedDependency, Type = typeof(BaseResponse<EmptyResponse>))]
+        [SwaggerOperation("Update user password", OperationId = nameof(UpdateUserPassword))]
+        public async Task<IActionResult> UpdateUserPassword(UpdatePasswordRequest request)
+        {
+            var userId = User.GetUserData().Id;
+            var response = await _userService.UpdatePassword(userId, request);
+
+            return !200.Equals(response.Code)
+                ? StatusCode(response.Code, response)
+                : Ok(response);
+        }
     }
 }
