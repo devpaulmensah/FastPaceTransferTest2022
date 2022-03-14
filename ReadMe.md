@@ -15,5 +15,3 @@ $ docker run --name redis -d redis
 start redis in docker and run app
 $ dotnet run - start app
 ```
-
-Name: Paul Mensah, Position: Software Developer, Phone Number: 0201750235
