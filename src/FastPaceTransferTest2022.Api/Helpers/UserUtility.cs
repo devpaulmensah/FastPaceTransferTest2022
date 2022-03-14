@@ -13,7 +13,7 @@ namespace FastPaceTransferTest2022.Api.Helpers
             var claimsIdentity = claims.Identities.FirstOrDefault(i => i.AuthenticationType == CommonConstants.AppAuthIdentity);
             var userData = claimsIdentity?.FindFirst(ClaimTypes.Thumbprint);
 
-            if (userData == null)
+            if (userData is null)
             {
                 return new UserResponse();
             }

@@ -43,7 +43,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                         u.EmailAddress.Equals(request.EmailAddress) ||
                         u.MobileNumber.Equals(request.MobileNumber));
 
-                if (user != null)
+                if (!(user is null))
                 {
                     return new BaseResponse<UserResponse>
                     {
@@ -92,7 +92,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var user = await _dbContext.Users.AsNoTracking()
                     .FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<UserResponse>
                     {
@@ -202,7 +202,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             {
                 var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<UserResponse>
                     {
@@ -250,7 +250,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var user = await _dbContext.Users
                     .FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<UserResponse>
                     {
@@ -330,7 +330,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             {
                 var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Id.Equals(userId));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<UserResponse>
                     {

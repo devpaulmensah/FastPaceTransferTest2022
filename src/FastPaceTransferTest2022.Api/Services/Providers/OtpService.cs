@@ -52,7 +52,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                     .FirstOrDefaultAsync(u =>
                         u.EmailAddress.Equals(request.EmailAddress, StringComparison.OrdinalIgnoreCase));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<SendOtpResponse>
                     {
@@ -94,7 +94,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                     .FirstOrDefaultAsync(u =>
                         u.EmailAddress.Equals(request.EmailAddress, StringComparison.OrdinalIgnoreCase));
 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<LoginResponse>
                     {

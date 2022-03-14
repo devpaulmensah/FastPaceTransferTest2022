@@ -36,7 +36,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var user = await _dbContext.Users.AsNoTracking()
                     .FirstOrDefaultAsync(u => u.Id.Equals(request.UserId));
                 
-                if (user == null)
+                if (user is null)
                 {
                     return new BaseResponse<WalletResponse>
                     {
@@ -48,7 +48,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var wallet = await _dbContext.Wallets.AsNoTracking()
                     .FirstOrDefaultAsync(w => w.UserId.Equals(request.UserId));
 
-                if (wallet != null)
+                if (!(wallet is null))
                 {
                     return new BaseResponse<WalletResponse>
                     {
@@ -95,7 +95,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var wallet = await _dbContext.Wallets.AsNoTracking()
                     .FirstOrDefaultAsync(w => w.Id.Equals(walletId));
 
-                if (wallet == null)
+                if (wallet is null)
                 {
                     return new BaseResponse<WalletResponse>
                     {
@@ -152,7 +152,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var wallet = await _dbContext.Wallets
                     .FirstOrDefaultAsync(w => w.Id.Equals(walletId));
 
-                if (wallet == null)
+                if (wallet is null)
                 {
                     return new BaseResponse<WalletResponse>
                     {
@@ -198,7 +198,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 var wallet = await _dbContext.Wallets
                     .FirstOrDefaultAsync(w => w.UserId.Equals(userId));
 
-                if (wallet == null)
+                if (wallet is null)
                 {
                     return new BaseResponse<WalletResponse>
                     {
