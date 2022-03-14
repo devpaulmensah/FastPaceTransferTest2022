@@ -81,7 +81,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured sending otp to email address: {request.EmailAddress}");
+                _logger.LogError(e, "An error occured sending otp to email address:{emailAddress}",request.EmailAddress);
                 return CommonConstants.GetInternalServerResponse<SendOtpResponse>();
             }
         }
@@ -135,8 +135,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, "An error occured verifying otp with" +
-                                    $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error occured verifying otp with\nRequest:{request}",
+                    JsonConvert.SerializeObject(request, Formatting.Indented));
                 return CommonConstants.GetInternalServerResponse<LoginResponse>();
             }
         }
@@ -170,7 +170,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured sending otp to user: {email}");
+                _logger.LogError(e, "An error occured sending otp to user:{email}", email);
                 return false;
             }
         }

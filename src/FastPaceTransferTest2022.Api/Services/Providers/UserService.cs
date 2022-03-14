@@ -60,8 +60,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 
                 if (response < 1)
                 {
-                    _logger.LogError("An error occured saving user" +
-                                     $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                    _logger.LogError("An error occured saving user\nRequest:{request}", 
+                        JsonConvert.SerializeObject(request, Formatting.Indented));
 
                     return CommonConstants.GetFailedDependencyResponse<UserResponse>();
                 }
@@ -78,8 +78,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured creating a user" +
-                                    $"\nRequest => {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error occured creating a user\nRequest: {request}",
+                JsonConvert.SerializeObject(request, Formatting.Indented));
 
                 return CommonConstants.GetInternalServerResponse<UserResponse>();
             }
@@ -112,7 +112,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured getting user: {userId} details");
+                _logger.LogError(e, "An error occured getting user:{userId} details", userId);
 
                 return CommonConstants.GetInternalServerResponse<UserResponse>();
             }
@@ -147,8 +147,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured getting purchase list of users" +
-                                    $"\nFilters => {JsonConvert.SerializeObject(filter)}");
+                _logger.LogError(e, "An error occured getting purchase list of users\nFilters: {filter}",
+                    JsonConvert.SerializeObject(filter));
 
                 return CommonConstants.GetInternalServerResponse<PaginatedList<UserResponse>>();
             }
@@ -219,8 +219,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
                 
                 if (updateResponse < 1)
                 {
-                    _logger.LogError($"An error occured updating user: {userId} details" +
-                                     $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                    _logger.LogError("An error occured updating user:{userId} detail\nRequest:{request}",
+                    userId, JsonConvert.SerializeObject(request));
 
                     return CommonConstants.GetFailedDependencyResponse<UserResponse>();
                 }
@@ -236,8 +236,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured updating user: {userId} details" +
-                                    $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error occured updating user:{userId} detail\nRequest:{request}",
+                userId, JsonConvert.SerializeObject(request, Formatting.Indented));
 
                 return CommonConstants.GetInternalServerResponse<UserResponse>();
             }
@@ -264,7 +264,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
 
                 if (deleteResponse < 1)
                 {
-                    _logger.LogError($"An error occured deleting user: {userId} details");
+                    _logger.LogError("An error occured deleting user:{userId} details", userId);
 
                     return CommonConstants.GetFailedDependencyResponse<UserResponse>();
                 }
@@ -279,7 +279,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured deleting user: {userId} details");
+                _logger.LogError(e, "An error occured deleting user:{userId} details", userId);
 
                 return CommonConstants.GetInternalServerResponse<UserResponse>();
             }
@@ -319,7 +319,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError($"An error occured getting user: {userId} profile");
+                _logger.LogError("An error occured getting user:{userId} profile", userId);
                 return CommonConstants.GetInternalServerResponse<UserProfileResponse>();
             }
         }
@@ -382,8 +382,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured updating user: {userId} details" +
-                                    $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error occured updating user:{userId} details\nRequest:{request}", 
+                userId, JsonConvert.SerializeObject(request, Formatting.Indented));
 
                 return CommonConstants.GetInternalServerResponse<UserResponse>();
             }

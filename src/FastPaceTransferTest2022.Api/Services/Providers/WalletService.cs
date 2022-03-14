@@ -64,8 +64,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
 
                 if (response < 1)
                 {
-                    _logger.LogError("An error occured saving wallet" +
-                                     $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                    _logger.LogError("An error occured saving wallet\nRequest:{request}",
+                        JsonConvert.SerializeObject(request, Formatting.Indented));
 
                     return CommonConstants.GetFailedDependencyResponse<WalletResponse>();
                 }
@@ -81,8 +81,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured creating a wallet" +
-                                    $"\nRequest => {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error occured creating a wallet\nRequest: {request}",
+                    JsonConvert.SerializeObject(request, Formatting.Indented));
 
                 return CommonConstants.GetInternalServerResponse<WalletResponse>();
             }
@@ -115,7 +115,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured getting wallet with id: {walletId}");
+                _logger.LogError(e, "An error occured getting wallet with id:{walletId}", walletId);
 
                 return CommonConstants.GetInternalServerResponse<WalletResponse>();
             }
@@ -139,7 +139,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured getting user wallet with id: {userId}");
+                _logger.LogError(e, "An error occured getting user wallet with id:{userId}", userId);
 
                 return CommonConstants.GetInternalServerResponse<WalletResponse>();
             }
@@ -168,8 +168,8 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
 
                 if (updateResponse < 1)
                 {
-                    _logger.LogError($"An error occured updating a wallet with id: {walletId}" +
-                                     $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                    _logger.LogError("An error occured updating a wallet with id:{walletId}\nRequest:{request}",
+                        walletId, JsonConvert.SerializeObject(request, Formatting.Indented));
 
                     return CommonConstants.GetFailedDependencyResponse<WalletResponse>();
                 }
@@ -185,7 +185,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured getting wallet with id: {walletId}");
+                _logger.LogError(e, "An error occured getting wallet with id:{walletId}", walletId);
 
                 return CommonConstants.GetInternalServerResponse<WalletResponse>();
             }
@@ -212,7 +212,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
 
                 if (deleteResponse < 1)
                 {
-                    _logger.LogError($"An error occured deleting a wallet for user with id: {userId}");
+                    _logger.LogError("An error occured deleting a wallet for user with id:{userId}", userId);
 
                     return CommonConstants.GetFailedDependencyResponse<WalletResponse>();
                 }
@@ -225,7 +225,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error occured deleting wallet for user with id: {userId}");
+                _logger.LogError(e, "An error occured deleting wallet for user with id:{userId}", userId);
 
                 return CommonConstants.GetInternalServerResponse<WalletResponse>();
             }

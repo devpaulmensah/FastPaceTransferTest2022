@@ -89,8 +89,7 @@ namespace FastPaceTransferTest2022.Api.Services.Providers
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"An error signing in a user" +
-                                    $"\nRequest: {JsonConvert.SerializeObject(request)}");
+                _logger.LogError(e, "An error signing in a user\nRequest: {request}",JsonConvert.SerializeObject(request, Formatting.Indented));
 
                 return CommonConstants.GetInternalServerResponse<LoginResponse>();
             }
